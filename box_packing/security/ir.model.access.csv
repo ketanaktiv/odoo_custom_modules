@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_box_packing_box_packing,box_packing.box_packing,model_box_packing_box_packing,,1,0,0,0
