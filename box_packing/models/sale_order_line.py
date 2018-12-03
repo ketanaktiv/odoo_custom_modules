@@ -6,6 +6,11 @@ from odoo.exceptions import UserError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
+    @api.model
+    def create(self, vals):
+        print("\n\n", vals, "\n\n")
+        return super(SaleOrderLine, self).create(vals)
+
     @api.onchange('product_id')
     def _onchange_product_id_set_customer_lead(self):
         self.customer_lead = self.product_id.sale_delay
@@ -21,7 +26,6 @@ class SaleOrderLine(models.Model):
                     )
                     product_qty = self.product_uom._compute_quantity(
                         box_product_qty, box_product.product_id.uom_id)
-                    print("\n\nproduct", product, "\n\n")
                     if float_compare(product.virtual_available, product_qty,
                                      precision_digits=precision) == -1:
                         is_available = self._check_routing()
@@ -103,10 +107,15 @@ class SaleOrderLine(models.Model):
                         line.order_id.partner_shipping_id.property_stock_customer,
                         line.name, line.order_id.name, values)
                 if line.product_id.box_pack:
+                    self.env['procurement.group'].run(
+                        line.product_id, product_qty, procurement_uom,
+                        line.order_id.partner_shipping_id.property_stock_customer,
+                        line.name, line.order_id.name, values)
                     for product in line.product_id.box_product_ids:
                         if product.product_id.type in ('consu', 'product'):
                             self.env['procurement.group'].run(
-                                product.product_id, product.product_qty,
+                                product.product_id,
+                                product.product_qty * line.product_uom_qty,
                                 procurement_uom,
                                 line.order_id.partner_shipping_id.property_stock_customer,
                                 line.name, line.order_id.name, values)

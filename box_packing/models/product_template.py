@@ -12,6 +12,11 @@ class ProductTemplate(models.Model):
     box_product_ids = fields.One2many('product.box.pack', 'product_tmpl_id',
                                       string="Box Products")
 
+    @api.onchange('box_pack')
+    def _onchange_box_pack(self):
+        if self.box_pack:
+            self.type = 'consu'
+
     @api.model
     def create(self, vals):
         if vals.get('box_product_ids') and not vals.get('box_pack'):
@@ -19,13 +24,16 @@ class ProductTemplate(models.Model):
         if vals.get('box_pack') and vals.get('attribute_line_ids'):
             raise ValidationError(_('''It is not possible to create \
                 variants of Box product.'''))
+        if vals.get('box_pack') and vals.get('type') != 'consu':
+            raise ValidationError(_('''Set Box products type consumable.'''))
         return super(ProductTemplate, self).create(vals)
 
     @api.multi
     def write(self, vals):
         for pro_temp_rec in self:
             if vals.get('box_pack'):
-                vals.update({'attribute_line_ids': [[2, 6, False]]})
+                vals.update({'attribute_line_ids': [[2, 6, False]],
+                             'type': 'consu'})
         res = super(ProductTemplate, self).write(vals)
         return res
 
