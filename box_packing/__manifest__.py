@@ -10,7 +10,8 @@
     'author': "My Company",
     'website': "http://www.yourcompany.com",
     'category': 'Product',
-    'version': '0.1',
+    'version': '11.0.1.0.0',
+    'license': 'LGPL-3',
     'depends': ['sale_stock'],
     'data': [
         'security/ir.model.access.csv',
@@ -19,4 +20,7 @@
         'views/product_template_views.xml',
         'views/sale_order_view.xml',
     ],
+    'auto_install': False,
+    'installable': True,
+    'application': False,
 }

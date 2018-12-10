@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <field name="order_line" position="before">
-                <button name="%(add_box_product_action)d" string="ADD BOX" type="action"/>
+                <button name="%(add_box_product_action)d" string="ADD BOX" type="action" states="draft,sent"/>
             </field>
         </field>
     </record>
