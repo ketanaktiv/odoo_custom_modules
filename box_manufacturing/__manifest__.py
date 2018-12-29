@@ -2,16 +2,16 @@
 {
     'name': "Box Manufacturing",
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        It will restrict unnecessary manufacturing order of box product.""",
     'description': """
-        Long description of module's purpose
+        This module is auto installed when you install
+        manufacturing module and Box packaging Module.
     """,
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "TechUltra",
+    'website': "http://www.techultra.in",
     'category': 'Product',
     'version': '11.0.1.0.0',
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
     'depends': ['box_packing', 'mrp'],
     'data': [
         'views/product_view.xml',

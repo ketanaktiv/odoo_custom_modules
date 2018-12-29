@@ -2,6 +2,7 @@
 {
     'name': "Box Packing",
     'summary': """
+        Gives functionality to create box type products.
     """,
     'description': """
         This module allows you to sell your product in box,
@@ -9,7 +10,7 @@
         box will start to behave like separate product.
         And you can easily keep track of box.
     """,
-    'author': "My Company",
+    'author': "TechUltra",
     'website': "http://www.techultra.in",
     'category': 'Product',
     'version': '11.0.1.0.0',
