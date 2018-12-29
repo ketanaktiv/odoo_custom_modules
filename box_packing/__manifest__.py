@@ -2,16 +2,20 @@
 {
     'name': "Box Packing",
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+    """,
     'description': """
-        Long description of module's purpose
+        This module allows you to sell your product in box,
+        once you put product in box,
+        box will start to behave like separate product.
+        And you can easily keep track of box.
     """,
     'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'website': "http://www.techultra.in",
     'category': 'Product',
     'version': '11.0.1.0.0',
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
+    'price': 44.00,
+    'currency': "EUR",
     'depends': ['sale_stock'],
     'data': [
         'security/ir.model.access.csv',

@@ -16,6 +16,7 @@ class ProductTemplate(models.Model):
     def _onchange_box_pack(self):
         if self.box_pack:
             self.type = 'consu'
+            self.purchase_ok = False
 
     @api.model
     def create(self, vals):
@@ -26,15 +27,23 @@ class ProductTemplate(models.Model):
                 variants of Box product.'''))
         if vals.get('box_pack') and vals.get('type') != 'consu':
             raise ValidationError(_('''Set Box products type consumable.'''))
+        if vals.get('box_pack') and vals.get('purchase_ok'):
+            raise ValidationError(_('''Box products cann't purchased.'''))
         return super(ProductTemplate, self).create(vals)
 
     @api.multi
     def write(self, vals):
-        for pro_temp_rec in self:
-            if vals.get('box_pack'):
-                vals.update({'attribute_line_ids': [[2, 6, False]],
-                             'type': 'consu'})
         res = super(ProductTemplate, self).write(vals)
+        for product_temp_rec in self:
+            if product_temp_rec.box_pack and \
+                    product_temp_rec.attribute_line_ids:
+                raise ValidationError(_('''It is not possible to create \
+                variants of Box product.'''))
+            if product_temp_rec.box_pack and product_temp_rec.purchase_ok:
+                raise ValidationError(_('''Box products cann't purchased.'''))
+            if product_temp_rec.box_pack and product_temp_rec.type != 'consu':
+                raise ValidationError(_(
+                    '''Set Box products type consumable.'''))
         return res
 
     @api.onchange('box_pack')

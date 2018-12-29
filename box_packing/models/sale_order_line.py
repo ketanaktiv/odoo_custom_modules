@@ -6,14 +6,10 @@ from odoo.exceptions import UserError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.model
-    def create(self, vals):
-        print("\n\n", vals, "\n\n")
-        return super(SaleOrderLine, self).create(vals)
-
     @api.onchange('product_id')
     def _onchange_product_id_set_customer_lead(self):
         self.customer_lead = self.product_id.sale_delay
+        print ("=" * 100, "\n", self)
         if self.product_id.box_pack:
             for box_product in self.product_id.box_product_ids:
                 box_product_qty = box_product.product_qty

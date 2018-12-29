@@ -13,7 +13,9 @@
     'version': '11.0.1.0.0',
     'license': 'LGPL-3',
     'depends': ['box_packing', 'mrp'],
-    'data': [],
+    'data': [
+        'views/product_view.xml',
+    ],
     'auto_install': True,
     'installable': True,
     'application': False,

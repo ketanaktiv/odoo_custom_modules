@@ -6,7 +6,7 @@
             <form>
                 <group>
                     <group>
-                        <field name="product_id"/>
+                        <field name="product_id" context="{'default_box_pack': True}"/>
                     </group>
                     <group>
                         <field name="product_qty"/>
